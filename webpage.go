@@ -8,30 +8,59 @@ import (
 )
 
 // WebPage is the type that represents the pages of the website
-type WebPage []byte
-
-// HTML return html string of page
-func (wp *WebPage) HTML() string {
-	return string(*wp)
+type WebPage struct {
+	Title       string
+	Keywords    string
+	Description string
+	BodyText    string
 }
 
-// Text return full-text of page
-func (wp *WebPage) Text() string {
-	doc := wp.doc()
-	return doc.Text()
+// New generate WebPage structure
+func New(page []byte) WebPage {
+	doc := getDoc(page)
+
+	wp := WebPage{
+		Title:       getTitle(doc),
+		Keywords:    getKeywords(doc),
+		Description: getDescription(doc),
+		BodyText:    getBodyText(doc),
+	}
+
+	return wp
 }
 
 // Title return text in <title> tag
-func (wp *WebPage) Title() string {
-	doc := wp.doc()
+func (wp *WebPage) GetTitle() string {
+	return wp.Title
+}
+
+// Keywords return content of <meta name="keywords" ~>
+func (wp *WebPage) GetKeywords() string {
+	return wp.Keywords
+}
+
+// Description return content of <meta name="description" ~>
+func (wp *WebPage) GetDescription() string {
+	return wp.Description
+}
+
+// BodyText return text in <body> tag
+func (wp *WebPage) GetBodyText() string {
+	return wp.BodyText
+}
+
+func getDoc(page []byte) *goquery.Document {
+	reader := bytes.NewReader(page)
+	doc, _ := goquery.NewDocumentFromReader(reader)
+	return doc
+}
+
+func getTitle(doc *goquery.Document) string {
 	title := doc.Find("title")
 	return title.Text()
 }
 
-// Keywords return content of <meta name="keywords" ~>
-func (wp *WebPage) Keywords() string {
-	doc := wp.doc()
-
+func getKeywords(doc *goquery.Document) string {
 	keyword := ""
 	doc.Find("meta").Each(func(i int, s *goquery.Selection) {
 		if name, _ := s.Attr("name"); strings.EqualFold(name, "keywords") {
@@ -41,10 +70,7 @@ func (wp *WebPage) Keywords() string {
 	return keyword
 }
 
-// Description return content of <meta name="description" ~>
-func (wp *WebPage) Description() string {
-	doc := wp.doc()
-
+func getDescription(doc *goquery.Document) string {
 	description := ""
 	doc.Find("meta").Each(func(i int, s *goquery.Selection) {
 		if name, _ := s.Attr("name"); strings.EqualFold(name, "description") {
@@ -54,23 +80,7 @@ func (wp *WebPage) Description() string {
 	return description
 }
 
-// BodyHTML return full html text in <body> tag
-func (wp *WebPage) BodyHTML() string {
-	doc := wp.doc()
-	body := doc.Find("body")
-	HTML, _ := body.Html()
-	return HTML
-}
-
-// BodyText return text in <body> tag
-func (wp *WebPage) BodyText() string {
-	doc := wp.doc()
+func getBodyText(doc *goquery.Document) string {
 	body := doc.Find("body")
 	return body.Text()
-}
-
-func (wp *WebPage) doc() *goquery.Document {
-	reader := bytes.NewReader(*wp)
-	doc, _ := goquery.NewDocumentFromReader(reader)
-	return doc
 }

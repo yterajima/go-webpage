@@ -6,72 +6,37 @@ import (
 	"testing"
 )
 
-func TestHTML(t *testing.T) {
-	wp := getWebPage()
-	page := getPage()
-
-	if wp.HTML() != string(page) {
-		t.Error("HTML() should return HTML data")
-	}
-}
-
-func TestText(t *testing.T) {
-	wp := getWebPage()
-	text := wp.Text()
-
-	if m1, _ := regexp.MatchString("sample-1.html", text); !m1 {
-		t.Error("Text() should contain 'sample-1.html'")
-	}
-
-	if m2, _ := regexp.MatchString("hogehoge", text); !m2 {
-		t.Error("Text() should contain 'hogehoge'")
-	}
-
-	if m3, _ := regexp.MatchString("something text", text); !m3 {
-		t.Error("Text() should contain 'something text'")
-	}
-}
-
 func TestTitle(t *testing.T) {
-	wp := getWebPage()
+	page := getPage()
+	wp := New(page)
 
-	if wp.Title() != "sample-1.html" {
+	if wp.GetTitle() != "sample-1.html" {
 		t.Error("Title() should return 'sample-1.html'")
 	}
 }
 
 func TestKeywords(t *testing.T) {
-	wp := getWebPage()
+	page := getPage()
+	wp := New(page)
 
-	if wp.Keywords() != "keyword1, keyword2, keyword3" {
+	if wp.GetKeywords() != "keyword1, keyword2, keyword3" {
 		t.Error("Keywords() should return 'keyword1, keyword2, keyword3'")
 	}
 }
 
 func TestDescription(t *testing.T) {
-	wp := getWebPage()
+	page := getPage()
+	wp := New(page)
 
-	if wp.Description() != "some description" {
+	if wp.GetDescription() != "some description" {
 		t.Error("Description() should return 'some description'")
 	}
 }
 
-func TestBodyHTML(t *testing.T) {
-	wp := getWebPage()
-	bodyHTML := wp.BodyHTML()
-
-	if m1, _ := regexp.MatchString("<div class=\"test\">hogehoge</div>", bodyHTML); !m1 {
-		t.Error("BodyHTML() should contain '<div class=\"test\">hogehoge</div>'")
-	}
-
-	if m2, _ := regexp.MatchString("<p>something text</p>", bodyHTML); !m2 {
-		t.Error("BodyHTML() should contain '<p>something text</p>'")
-	}
-}
-
 func TestBodyText(t *testing.T) {
-	wp := getWebPage()
-	bodyText := wp.BodyText()
+	page := getPage()
+	wp := New(page)
+	bodyText := wp.GetBodyText()
 
 	if m1, _ := regexp.MatchString("hogehoge", bodyText); !m1 {
 		t.Error("BodyText() should contain 'hogehoge'")
@@ -80,11 +45,6 @@ func TestBodyText(t *testing.T) {
 	if m2, _ := regexp.MatchString("something text", bodyText); !m2 {
 		t.Error("BodyText() should contain 'something text'")
 	}
-}
-
-func getWebPage() WebPage {
-	page := getPage()
-	return WebPage(page)
 }
 
 func getPage() []byte {
