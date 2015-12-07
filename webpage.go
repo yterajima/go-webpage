@@ -7,23 +7,28 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
+// WebPage is the type that represents the pages of the website
 type WebPage []byte
 
+// Html return html string of page
 func (wp *WebPage) Html() string {
 	return string(*wp)
 }
 
+// Text return full-text of page
 func (wp *WebPage) Text() string {
 	doc := wp.doc()
 	return doc.Text()
 }
 
+// Title return text in <title> tag
 func (wp *WebPage) Title() string {
 	doc := wp.doc()
 	title := doc.Find("title")
 	return title.Text()
 }
 
+// Keywords return content of <meta name="keywords" ~>
 func (wp *WebPage) Keywords() string {
 	doc := wp.doc()
 
@@ -36,6 +41,7 @@ func (wp *WebPage) Keywords() string {
 	return keyword
 }
 
+// Description return content of <meta name="description" ~>
 func (wp *WebPage) Description() string {
 	doc := wp.doc()
 
@@ -48,6 +54,7 @@ func (wp *WebPage) Description() string {
 	return description
 }
 
+// BodyHtml return full html text in <body> tag
 func (wp *WebPage) BodyHtml() string {
 	doc := wp.doc()
 	body := doc.Find("body")
@@ -55,6 +62,7 @@ func (wp *WebPage) BodyHtml() string {
 	return html
 }
 
+// BodyText return text in <body> tag
 func (wp *WebPage) BodyText() string {
 	doc := wp.doc()
 	body := doc.Find("body")
