@@ -29,22 +29,22 @@ func New(page []byte) WebPage {
 	return wp
 }
 
-// Title return text in <title> tag
+// GetTitle return text in <title> tag
 func (wp *WebPage) GetTitle() string {
 	return removeExtraSpaces(wp.Title)
 }
 
-// Keywords return content of <meta name="keywords" ~>
+// GetKeywords return content of <meta name="keywords" ~>
 func (wp *WebPage) GetKeywords() string {
 	return removeExtraSpaces(wp.Keywords)
 }
 
-// Description return content of <meta name="description" ~>
+// GetDescription return content of <meta name="description" ~>
 func (wp *WebPage) GetDescription() string {
 	return removeExtraSpaces(wp.Description)
 }
 
-// BodyText return text in <body> tag
+// GetBodyText return text in <body> tag
 func (wp *WebPage) GetBodyText() string {
 	return removeDuplicateLinebreak(wp.BodyText)
 }
