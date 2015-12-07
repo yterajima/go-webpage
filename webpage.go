@@ -31,22 +31,22 @@ func New(page []byte) WebPage {
 
 // Title return text in <title> tag
 func (wp *WebPage) GetTitle() string {
-	return wp.Title
+	return removeExtraSpaces(wp.Title)
 }
 
 // Keywords return content of <meta name="keywords" ~>
 func (wp *WebPage) GetKeywords() string {
-	return wp.Keywords
+	return removeExtraSpaces(wp.Keywords)
 }
 
 // Description return content of <meta name="description" ~>
 func (wp *WebPage) GetDescription() string {
-	return wp.Description
+	return removeExtraSpaces(wp.Description)
 }
 
 // BodyText return text in <body> tag
 func (wp *WebPage) GetBodyText() string {
-	return wp.BodyText
+	return removeDuplicateLinebreak(wp.BodyText)
 }
 
 func getDoc(page []byte) *goquery.Document {
