@@ -10,8 +10,8 @@ import (
 // WebPage is the type that represents the pages of the website
 type WebPage []byte
 
-// Html return html string of page
-func (wp *WebPage) Html() string {
+// HTML return html string of page
+func (wp *WebPage) HTML() string {
 	return string(*wp)
 }
 
@@ -54,12 +54,12 @@ func (wp *WebPage) Description() string {
 	return description
 }
 
-// BodyHtml return full html text in <body> tag
-func (wp *WebPage) BodyHtml() string {
+// BodyHTML return full html text in <body> tag
+func (wp *WebPage) BodyHTML() string {
 	doc := wp.doc()
 	body := doc.Find("body")
-	html, _ := body.Html()
-	return html
+	HTML, _ := body.Html()
+	return HTML
 }
 
 // BodyText return text in <body> tag

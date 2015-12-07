@@ -6,12 +6,12 @@ import (
 	"testing"
 )
 
-func TestHtml(t *testing.T) {
+func TestHTML(t *testing.T) {
 	wp := getWebPage()
 	page := getPage()
 
-	if wp.Html() != string(page) {
-		t.Error("Html() should return HTML data")
+	if wp.HTML() != string(page) {
+		t.Error("HTML() should return HTML data")
 	}
 }
 
@@ -56,16 +56,16 @@ func TestDescription(t *testing.T) {
 	}
 }
 
-func TestBodyHtml(t *testing.T) {
+func TestBodyHTML(t *testing.T) {
 	wp := getWebPage()
-	bodyHtml := wp.BodyHtml()
+	bodyHTML := wp.BodyHTML()
 
-	if m1, _ := regexp.MatchString("<div class=\"test\">hogehoge</div>", bodyHtml); !m1 {
-		t.Error("BodyHtml() should contain '<div class=\"test\">hogehoge</div>'")
+	if m1, _ := regexp.MatchString("<div class=\"test\">hogehoge</div>", bodyHTML); !m1 {
+		t.Error("BodyHTML() should contain '<div class=\"test\">hogehoge</div>'")
 	}
 
-	if m2, _ := regexp.MatchString("<p>something text</p>", bodyHtml); !m2 {
-		t.Error("BodyHtml() should contain '<p>something text</p>'")
+	if m2, _ := regexp.MatchString("<p>something text</p>", bodyHTML); !m2 {
+		t.Error("BodyHTML() should contain '<p>something text</p>'")
 	}
 }
 
