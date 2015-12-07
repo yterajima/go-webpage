@@ -6,10 +6,12 @@ go:
   - tip
 install:
   - go get github.com/golang/lint/golint
+  - go get github.com/mattn/gom
+  - gom -test install
 script:
   - test -z "$(golint ./... | tee /dev/stderr)"
-  - go test -v ./...
-  - go test -v -bench .
+  - gom test -v ./...
+  - gom test -v -bench .
 matrix:
   allow_failures:
     - go: tip
