@@ -1,17 +1,20 @@
 package webpage
 
 import (
+	"bytes"
+	"strings"
+
 	"github.com/PuerkitoBio/goquery"
 )
 
 type WebPage []byte
 
 func (wp *WebPage) Html() string {
-	return string(wp)
+	return string(*wp)
 }
 
 func (wp *WebPage) Text() string {
-	doc := wp.Doc()
+	doc := wp.doc()
 	return doc.Text()
 }
 
@@ -34,7 +37,7 @@ func (wp *WebPage) Keywords() string {
 }
 
 func (wp *WebPage) Description() string {
-	doc := wp.Doc()
+	doc := wp.doc()
 
 	description := ""
 	doc.Find("meta").Each(func(i int, s *goquery.Selection) {
@@ -45,28 +48,15 @@ func (wp *WebPage) Description() string {
 	return description
 }
 
-func (wp *WebPage) HeadHtml() string {
-	doc := wp.Doc()
-	head := doc.Find("head")
-	html, _ := head.Html()
-	return html
-}
-
-func (wp *WebPage) HeadText() string {
-	doc := wp.Doc()
-	head := doc.Find("head")
-	return head.Text()
-}
-
 func (wp *WebPage) BodyHtml() string {
-	doc := wp.Doc()
+	doc := wp.doc()
 	body := doc.Find("body")
 	html, _ := body.Html()
 	return html
 }
 
 func (wp *WebPage) BodyText() string {
-	doc := wp.Doc()
+	doc := wp.doc()
 	body := doc.Find("body")
 	return body.Text()
 }
