@@ -6,6 +6,27 @@ import (
 	"testing"
 )
 
+func TestNew(t *testing.T) {
+	page := getPage()
+	wp := New(page)
+
+	if wp.Title != "sample-1.html" {
+		t.Error("wp.Title) should return 'sample-1.html'")
+	}
+
+	if wp.Keywords != "keyword1, keyword2, keyword3" {
+		t.Error("wp.Keywords should return 'keyword1, keyword2, keyword3'")
+	}
+
+	if wp.Description != "some description" {
+		t.Error("wp.Description should return 'some description'")
+	}
+
+	if string(wp.Data) != string(page) {
+		t.Error("wp.Data should return original data")
+	}
+}
+
 func TestTitle(t *testing.T) {
 	page := getPage()
 	wp := New(page)
