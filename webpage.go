@@ -13,6 +13,7 @@ type WebPage struct {
 	Keywords    string
 	Description string
 	BodyText    string
+	Data        []byte
 }
 
 // New generate WebPage structure
@@ -24,6 +25,7 @@ func New(page []byte) WebPage {
 		Keywords:    getKeywords(doc),
 		Description: getDescription(doc),
 		BodyText:    getBodyText(doc),
+		Data:        page,
 	}
 
 	return wp
