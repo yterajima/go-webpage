@@ -21,10 +21,6 @@ func TestNew(t *testing.T) {
 	if wp.Description != "some description" {
 		t.Error("wp.Description should return 'some description'")
 	}
-
-	if string(wp.Data) != string(page) {
-		t.Error("wp.Data should return original data")
-	}
 }
 
 func TestTitle(t *testing.T) {
