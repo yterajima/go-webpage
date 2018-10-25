@@ -5,7 +5,7 @@ go:
   - 1.5.1
   - tip
 install:
-  - go get github.com/golang/lint/golint
+  - go get golang.org/x/lint/golint
   - go get github.com/mattn/gom
   - gom -test install
 script:
