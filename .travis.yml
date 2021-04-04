@@ -9,11 +9,11 @@ go:
   - tip
 install:
   - go get github.com/golang/lint/golint
-  - gom -test install
 script:
   - test -z "$(golint ./... | tee /dev/stderr)"
-  - gom test -v ./...
-  - gom test -v -bench .
+  - go vet .
+  - go test -v .
+  - go test -v -bench . -benchmem
 jobs:
   allow_failures:
     - go: tip
